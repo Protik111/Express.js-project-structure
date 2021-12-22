@@ -27,12 +27,12 @@ class TicketDb {
      */
     //create multiple ticket
     createMultiple(username, price, quantity) {
-        let results = [];
+        let result = [];
         for (let i = 0; i < quantity, i++;) {
             const ticket = createTicket(username, price);
-            results.push(ticket);
+            result.push(ticket);
         }
-        return results;
+        return result;
     }
 
     /**
@@ -81,8 +81,8 @@ class TicketDb {
      */
     updateById(ticektId, ticketBody) {
         const ticket = this.findById(ticketId);
-        ticket.username = ticketBody.username ?? ticket.username;
-        ticket.price = ticketBody.price ?? ticket.price;
+        ticket.username = ticketBody.username ? ticket.username : '';
+        ticket.price = ticketBody.price ? ticket.price : '';
         ticket.updatedAt = new Date();
 
         return ticket;
@@ -95,17 +95,35 @@ class TicketDb {
     deleteById(ticketId) {
         const index = this.tickets.findIndex((index) => index.id === ticketId);
 
-        if(index !== -1){
+        if (index !== -1) {
             this.tickets.splice(index, 1);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    draw() {
+    /**
+     * draw for winner
+     * @param {number} winnerCount
+     */
+    draw(winnerCount) {
+        const winnerIndexes = new Array(winnerCount);
 
+        let index = 0;
+        while (index < winnerCount) {
+            let winnerIndex = Math.floor(Math.random() * this.tickets.length);
+            if(!winnerIndexes.includes(winnerIndex)){
+                winnerIndexes[index++] = winnerIndex;
+                continue;
+            }
+        }
+
+        const winners = winnerIndexes.map((index) => this.tickets[index]);
+        return winners;
     }
 
-
 }
+
+const newTicket = new TicketDb();
+module.exports = newTicket;
