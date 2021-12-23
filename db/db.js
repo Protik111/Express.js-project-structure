@@ -20,16 +20,16 @@ class TicketDb {
 
     /**
      * create multiple tickets
-     * @param {String} username
+     * @param {string} username
      * @param {number} price
      * @param {number} quantity
      * @returns {Array<Ticket>}
      */
     //create multiple ticket
     createMultiple(username, price, quantity) {
-        let result = [];
-        for (let i = 0; i < quantity, i++;) {
-            const ticket = createTicket(username, price);
+        const result = [];
+        for (let i = 0; i < quantity; i++) {
+            const ticket = this.createTicket(username, price);
             result.push(ticket);
         }
         return result;
@@ -79,7 +79,7 @@ class TicketDb {
      * @param {{username: String, price: number}} ticketBody
      * @returns {Ticket}
      */
-    updateById(ticektId, ticketBody) {
+    updateById(ticketId, ticketBody) {
         const ticket = this.findById(ticketId);
         ticket.username = ticketBody.username ? ticket.username : '';
         ticket.price = ticketBody.price ? ticket.price : '';

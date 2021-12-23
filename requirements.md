@@ -1,4 +1,5 @@
-# Lottery App
+# Lottery Api
+
 - sell lottery ticket
 - update lottery ticket
 - delete lottery ticket
@@ -7,7 +8,8 @@
 - buy bulk ticket
 - raffle draw
 
-# Ticket
+Ticket :
+
 - id (Unique)
 - username
 - price
