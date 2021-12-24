@@ -81,11 +81,43 @@ class TicketDb {
      */
     updateById(ticketId, ticketBody) {
         const ticket = this.findById(ticketId);
-        ticket.username = ticketBody.username ? ticket.username : '';
-        ticket.price = ticketBody.price ? ticket.price : '';
+        ticket.username = ticketBody.username ? ticketBody.username : '';
+        ticket.price = ticketBody.price ? ticketBody.price : '';
         ticket.updatedAt = new Date();
 
         return ticket;
+    }
+
+    /**
+     * //update ticket by username
+     * @param {String} username 
+     * @param {{username: String, price: number}} ticketbody 
+     * @returns {Ticket}
+     */
+    updateByUsername(username, ticketbody) {
+        const ticket = this.findByUserName(username);
+        ticket.username = ticketbody.username ? ticketbody.username : '';
+        ticket.price = ticketbody.price ? ticketbody.price : '';
+        console.log(ticket.username);
+        ticket.updatedAt = new Date();
+
+        return ticket;
+    }
+
+    deleteByUsername(username) {
+        // const ticket = this.findByUserName(username);
+        const index = this.tickets.findIndex((index) => index.username === username);
+        console.log(index, 'index');
+        // console.log(ticket, 'ticket');
+        // const restTickets = this.tickets.filter(ticket => ticket.username === username);
+
+        // return restTickets;
+        if (index !== -1) {
+            this.tickets.splice(index, 2)
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -113,7 +145,7 @@ class TicketDb {
         let index = 0;
         while (index < winnerCount) {
             let winnerIndex = Math.floor(Math.random() * this.tickets.length);
-            if(!winnerIndexes.includes(winnerIndex)){
+            if (!winnerIndexes.includes(winnerIndex)) {
                 winnerIndexes[index++] = winnerIndex;
                 continue;
             }

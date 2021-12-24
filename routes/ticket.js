@@ -27,11 +27,16 @@ router.get('/u/:username', (req, res) => {
 })
 
 router.patch('/u/:username', (req, res) => {
-
+    const username = req.params.username;
+    const updatedTicket = db.updateByUsername(username, req.body);
+    console.log(updatedTicket);
+    res.status(200).json({msg : 'Updated ticket succesfully', updatedTicket});
 })
 
 router.delete('/u/:username', (req, res) => {
-
+    const username = req.params.username;
+    const allTIckets = db.deleteByUsername(username);
+    res.status(200).json({msg : 'deleted succesfully', allTIckets})
 })
 
 //others
